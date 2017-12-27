@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import playlist
+import helper_functions
 
 class Voice:
 
@@ -39,6 +40,23 @@ class Voice:
             self.player.stop()
         self.player = await self.voice.create_ytdl_player(link)
         
-        
+        await helper_functions.music_info(self.player, self.bot, self.music_server.server)
+
+        self.player.start()
+        self.time_elapse = self.player.duration
+        await self.queue_poll()
+
+    async def queue_poll(self):
+        while self.time_elapse > 0:
+            self.time_elapse -= 1
+            await asyncio.sleep(1)
+
+        if self.playlist.current is not None:
+            await self.play_music(self.playlist.pop())
+            await asyncio.sleep(5)
+
+        elif self.playlist.current is None:
+            await self.voice.disconnect()
+    
 
 
