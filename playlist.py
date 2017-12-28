@@ -55,3 +55,18 @@ class Queue:
         if self.current is not None:
             self.build(self.current)
 
+    def pop(self):
+        if self.current is not None:
+
+            s = self.current.get_song()
+
+            if self.current.has_next():
+                self.current = self.current.get_next()
+            else:
+                self.current = None
+
+            self.update()
+            return s
+
+        else:
+            self.current = None
