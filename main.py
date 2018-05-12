@@ -1,4 +1,4 @@
-import Discord
+import discord
 from discord.ext import commands
 
 bot = commands.Bot(command_prefix='~')
@@ -8,11 +8,16 @@ startup_exts = ['commands','voice']
 async def on_ready():
     print('logging in')
 
-if __name__ == '__main__':
-    for ext in startup_exts:
-        try:
-            bot.load_extension(ext)
-        except Exception as e:
-            excep = '{}: {}'.format(type(e).__name__, e)
-            print('Failed to load {}\n{}'.format(ext, excep))
-    bot.run(Mzk0NjiMwMzUwMjA0MTc0MzM3.DSHHtg.M5N4Bt8WZvOyOeat1oy0BGY0DEI)
+@bot.command()
+async def add(ctx, a: int, b: int):
+    await ctx.send(a+b)
+
+@bot.command()
+async def help(ctx):
+    embed = discord.Embed(title = "Nero Bot", description = "UMU! The commands I'll accept from you are: ")
+
+    embed.add_field(name = "~add a b", value = "Gives the value of the addition of **a** and **b**")
+    await ctx.send(embed = embed)
+
+
+bot.run(Mzk0NjiMwMzUwMjA0MTc0MzM3.DSHHtg.M5N4Bt8WZvOyOeat1oy0BGY0DEI)
