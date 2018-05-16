@@ -4,6 +4,8 @@ from discord.ext import commands
 bot = commands.Bot(command_prefix='~')
 startup_exts = ['commands','voice']
 
+
+
 @bot.event
 async def on_ready():
     print('logging in')
